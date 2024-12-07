@@ -1,5 +1,6 @@
 import PocketBase, { ClientResponseError } from "pocketbase";
 import { User } from "telegraf/types";
+import { TelegramClient } from "./types";
 
 const client = new PocketBase(process.env.CMS_URL);
 
@@ -22,26 +23,14 @@ export const createClientIfNotExist = async (user: User) => {
 
 export const getUsers = async () => {
   const clients = await client
-    .collection<{
-      id: string;
-      first_name: string;
-      role: "client" | "manager" | "admin";
-      username: string;
-      userid: number;
-    }>("telegram_users")
+    .collection<TelegramClient>("telegram_users")
     .getFullList({ filter: "role='client'" });
   return clients;
 };
 
 export const getManagers = async () => {
   const managers = await client
-    .collection<{
-      id: string;
-      first_name: string;
-      role: "client" | "manager" | "admin";
-      username: string;
-      userid: number;
-    }>("telegram_users")
+    .collection<TelegramClient>("telegram_users")
     .getFullList({
       filter: 'role = "manager"',
       fields: "id, first_name, role, username, userid",
