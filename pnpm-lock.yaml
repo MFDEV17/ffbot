@@ -11,10 +11,16 @@ importers:
       dotenv:
         specifier: ^16.4.7
         version: 16.4.7
+      pocketbase:
+        specifier: ^0.22.1
+        version: 0.22.1
       telegraf:
         specifier: ^4.16.3
         version: 4.16.3
     devDependencies:
+      '@types/node':
+        specifier: ^22.10.1
+        version: 22.10.1
       ts-node:
         specifier: ^10.9.2
         version: 10.9.2(@types/node@22.10.1)(typescript@5.7.2)
@@ -285,6 +291,9 @@ packages:
     resolution: {integrity: sha512-+/wmHtzJuWii1sXn3HCuH/FTwGhrp4tmJTxSKJbfS+vkipci6osxXM5mY0jUiRzWKMTgUT8l7HFbeSwZAynqHw==}
     engines: {node: '>=10'}
 
+  pocketbase@0.22.1:
+    resolution: {integrity: sha512-hnzpDcIx5kbkUJXz6IkiTox6R4nb706u4rPSMy2FYCaI2OqBnFxbY0qwWBSqx1ERz/Xi61Uguf17Gb9bWZ8+kw==}
+
   resolve-pkg-maps@1.0.0:
     resolution: {integrity: sha512-seS2Tj26TBVOC2NIc2rOe2y2ZO7efxITtLZcGSOnHHNOQ7CkiUBfw0Iw2ck6xkIhPwLhKNLS8BO+hEpngQlqzw==}
 
@@ -522,6 +531,8 @@ snapshots:
       whatwg-url: 5.0.0
 
   p-timeout@4.1.0: {}
+
+  pocketbase@0.22.1: {}
 
   resolve-pkg-maps@1.0.0: {}
 
