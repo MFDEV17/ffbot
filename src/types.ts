@@ -1,54 +1,92 @@
 export type TelegramClient = {
   id: string;
   username: string;
-  userid: number;
-  first_name: string;
-  role: "client" | "manager" | "admin";
+  chatid: number;
 };
 
-export type Res = {
-  jsonlist: Jsonlist;
-  extraPrice: number;
+export type WebappData = {
+  cartmap: CartMap;
+  orderInfo: OrderInfo;
+  currencyChoice: Currency;
+  methodChoice: DeliveryMethod;
 };
 
-export type Jsonlist = {
-  [key: string]: Shop;
+type OrderInfo = {
+  finalOrderSum: number;
+  finalOrderSumInCurrency: number;
+  deliveryPriceInCurrency: number;
+  itemsPriceSumInCurrency: number;
+  extraDeliveryPriceSumInCurrency: number;
+  deliveryPrice: number;
+  itemsPriceSum: number;
+  extraDeliveryPriceSum: number;
+  redemptionFeeSum: number;
+  weightSum: number;
+  deliveryPriceDiffInCurrency: number;
+  deliveryType: "courier" | "mail";
+};
+
+type CartMap = {
+  [key: string]: {
+    carts: StoreCart[];
+    shop: Shop;
+  };
+};
+
+export type Category = {
+  id: string;
+  category_name: string;
+  single_category_name?: string;
+  default_weight: number;
+  category_image: string;
+};
+
+export type Currency = {
+  id: string;
+  currency_name: string;
+  currency_symbol: string;
+  amount_to_euro: number;
+  redemption_in_currency: number;
+  currency_code: string;
+  formattedCurrency: string;
+};
+
+export type DeliveryMethod = {
+  id: string;
+  delivery_name: string;
+  hint?: string;
+  delivery_speed: number;
+  delivery_ranges: DeliveryRange[];
+};
+
+export type DeliveryRange = {
+  id: string;
+  from: number;
+  to: number;
+  price: number;
 };
 
 export type Shop = {
-  carts: Cart[];
-  deliveryPrice: number;
-};
-
-export type Cart = {
-  count: number;
-  productLink: string;
-  price: number;
-  weight: number;
   id: string;
-  categoryRef: CategoryRef;
-  shopRef?: ShopRef;
-  priceCurrencyChoice: number;
-  extraDeliveryPrice?: number;
-};
-
-export type CategoryRef = {
-  category_image: string;
-  category_name: string;
-  collectionId: string;
-  collectionName: string;
-  default_weight: number;
-  id: string;
-  single_category_name: string;
-};
-
-export type ShopRef = {
-  id: string;
-  collectionName: string;
-  extra_delivery_price_amount: number;
-  free_delivery_price_amount: number;
-  shop_link: string;
   shop_name: string;
+  shop_link: string;
   special_commission_active: boolean;
   special_commission_amount: number;
+  extra_delivery_price_amount: number;
+  free_delivery_price_amount: number;
+};
+
+export type StoreCartFormProps = {
+  priceEuro: number;
+  size: string;
+  weight: number;
+  link: string;
+  comment: string;
+  count: number;
+  _id: string;
+};
+
+export type StoreCart = {
+  formValues: StoreCartFormProps;
+  category: Category;
 };

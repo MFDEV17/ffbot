@@ -8,14 +8,13 @@ export const createClientIfNotExist = async (user: User) => {
   try {
     await client
       .collection("telegram_users")
-      .getFirstListItem(`userid = ${user.id}`);
+      .getFirstListItem(`chatid = ${user.id}`);
   } catch (err) {
     if (err instanceof ClientResponseError) {
       if (err.status === 404) {
-        const { username, id: userid, first_name } = user;
         await client
           .collection("telegram_users")
-          .create({ username, userid, first_name, role: "client" });
+          .create({ username: user.username, chatid: user.id, role: "user" });
       }
     }
   }
@@ -23,18 +22,15 @@ export const createClientIfNotExist = async (user: User) => {
 
 export const getUsers = async () => {
   const clients = await client
-    .collection<TelegramClient>("telegram_users")
-    .getFullList({ filter: "role='client'" });
+    .collection<TelegramClient>("clients")
+    .getFullList();
   return clients;
 };
 
 export const getManagers = async () => {
   const managers = await client
-    .collection<TelegramClient>("telegram_users")
-    .getFullList({
-      filter: 'role = "manager"',
-      fields: "id, first_name, role, username, userid",
-    });
+    .collection<TelegramClient>("employees")
+    .getFullList();
 
   return managers;
 };
